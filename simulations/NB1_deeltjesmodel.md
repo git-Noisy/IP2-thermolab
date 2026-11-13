@@ -1,5 +1,9 @@
 # NB 1: Deeltjesmodel
 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+```
 
 Computer simulaties zijn een belangrijk onderdeel bij natuurkundig onderzoek: wat we niet in het lab kunnen doen, of waar we niet goed aan kunnen meten, kunnen we alsnog bestuderen dankzij simulaties. In deze module leggen we de basis voor natuurkundige computer simulaties en maken we de eerste stappen in ons deeltjes model.
 
@@ -36,7 +40,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Beginwaarden
-dt = 0.25                  #s
+dt = 0.                  #s
 t_e = 10                   #s
 N = int(t_e/dt)+1
 t = np.arange(0,t_e+dt,dt) #s
@@ -78,10 +82,15 @@ Maak het tijdsinterval $dt$ groter en vergelijk de afgelegde weg in de tien seco
 ```
 
 
+$\textbf{Antwoord:}$
+ De afgelegede weg blijft hetzelfde ondanks dat dt groter wordt.
+
+
 <!-- Jouw antwoord hier  -->
 
 ```python
-%reset -f  #clears memory as we don't need it further down 
+%reset -f  #clears memory as we dont need it further down 
+
 ```
 
 ## Naar een deeltjesmodel
@@ -230,9 +239,51 @@ En als je wilt gaan voor een uitdaging:
 
 ```python
 ### YOUR CODE HERE ###
+from numpy.random import randint
+
+
+tien_deeltjes = []
+
+for i in range(10):   
+    deeltje = ParticleClass(m=1.0, v=[randint(-5,6), randint(1,6)], r=[i, 0.0], R=1.0)
+    tien_deeltjes.append(deeltje)
+
+print(tien_deeltjes)
+
+plt.figure()
+for particle in tien_deeltjes:
+    plt.plot(particle.r[0],particle.r[1],'k.')
+
+
+
+for particle in tien_deeltjes:
+    particle.update_position(1.0)
+    plt.plot(particle.r[0],particle.r[1],'b.')
+
+
+
+plt.show()
+
 ```
 
 Onze simulaties worden snel “zwaar”. Er moeten veel berekeningen gedaan worden en dat kost nu eenmaal tijd. Nu is het wel zo dat sommige berekeningen meer tijd kosten dan anderen. Om te kijken of een stukje code geoptimaliseerd kan worden, moeten we een timer maken. Dat kan met onderstaande code:
+
+```python
+import time
+import numpy as np
+
+start = time.time()
+
+array = np.array([])
+N = int(1e5)
+
+for i in range(N),:.    array = np.append(array,np.random.rand(1))
+
+eind = time.time()
+lengte = eind - start
+
+print("Dit kostte ", lengte, "seconde!")
+```
 
 ```python
 import time
