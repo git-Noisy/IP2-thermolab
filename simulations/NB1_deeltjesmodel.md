@@ -36,7 +36,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Beginwaarden
-dt = 0.25                  #s
+dt = 2                     #s
 t_e = 10                   #s
 N = int(t_e/dt)+1
 t = np.arange(0,t_e+dt,dt) #s
@@ -76,6 +76,9 @@ Wat op zou kunnen vallen is dat de snelheid in een cel constant gehouden wordt (
 ```{exercise}
 Maak het tijdsinterval $dt$ groter en vergelijk de afgelegde weg in de tien seconde. Wat gebeurt er met de afgelegde weg als we $dt$ groter maken? Is dat logisch vanuit gezien de natuurkunde? En gezien de methode van discretisatie? Leg uit.
 ```
+
+
+De afgelegde afstand blijft hetzelfde alleen het aantal metingen binnen deze afstand veranderd. Er volgen minder metingen omdat de tijd tussen elke meting groter wordt.
 
 
 <!-- Jouw antwoord hier  -->
@@ -229,7 +232,29 @@ En als je wilt gaan voor een uitdaging:
 ```
 
 ```python
-### YOUR CODE HERE ###
+#from numpy import random
+
+particles_array = []
+
+for x_start in range(10):
+    particles_array.append(ParticleClass(m = 1, v = [np.random.randint(-5,6), np.random.randint(-1,11)], r = [x_start,0], R = 1.0))
+    
+    
+#print(particles_array)
+
+plt.figure()
+for particle in particles_array:
+    plt.plot(particle.r[0],particle.r[1],'k.')
+
+
+
+for particle in particles_array:
+    particle.update_position(1.0)
+    plt.plot(particle.r[0] , particle.r[1],"b.")
+
+plt.show()
+
+
 ```
 
 Onze simulaties worden snel “zwaar”. Er moeten veel berekeningen gedaan worden en dat kost nu eenmaal tijd. Nu is het wel zo dat sommige berekeningen meer tijd kosten dan anderen. Om te kijken of een stukje code geoptimaliseerd kan worden, moeten we een timer maken. Dat kan met onderstaande code:
@@ -240,6 +265,7 @@ import numpy as np
 
 start = time.time()
 
+random.randint(N)
 array = np.array([])
 N = int(1e5)
 
