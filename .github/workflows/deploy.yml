@@ -1,4 +1,5 @@
 # Use this workflow to make use of the central workflows from https://freekpols.github.io/JB-workflows/.github/workflows/
+
 name: Deploy
 
 on:
@@ -19,3 +20,5 @@ jobs:
       run_nb_checks: false
       run_fig_checks: true
       run_code_checks: true
+
+      
